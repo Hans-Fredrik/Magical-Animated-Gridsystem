@@ -10,17 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let numBoxesPerRow = 15
+    let boxesPerRow = 15
     
     var boxes = [String : UIView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let width = view.frame.width / CGFloat(numBoxesPerRow)
+        let width = view.frame.width / CGFloat(boxesPerRow)
         
         for y in 0...30{
-            for x in 0...numBoxesPerRow {
+            for x in 0...boxesPerRow {
                 let box = UIView()
                 box.backgroundColor = randomColor()
                 box.frame = CGRect(x: CGFloat(x) * width, y: CGFloat(y) * width, width: width, height: width)
@@ -36,32 +36,49 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
     }
     
+    
+    var selectedBox: UIView?
+    
     func handlePan(gesture: UIPanGestureRecognizer){
         let location = gesture.location(in: view)
-        print(location)
         
-        
-        let width = view.frame.width / CGFloat(numBoxesPerRow)
+        let width = view.frame.width / CGFloat(boxesPerRow)
         let x = Int(location.x / width)
         let y = Int(location.y / width)
         
-        print("X is: \(x)")
-        print("Y is: \(y)")
         
         let key = "\(x)|\(y)"
-        let selectedBox = boxes[key]
-        selectedBox?.backgroundColor = UIColor.white
+        guard let box = boxes[key] else {
+            return
+        }
         
-        /*
-        var loopcount = 0
-        for subview in view.subviews{
-            if subview.frame.contains(location){
-                subview.backgroundColor = UIColor.black
-                print("Loopcount: \(loopcount)")
-            }
+        if selectedBox != box{
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                
+                self.selectedBox?.layer.transform = CATransform3DIdentity
+                
+            }, completion: nil)
+        }
+        
+        
+        selectedBox = box
+        view.bringSubview(toFront: box)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
-            loopcount += 1
-        }*/
+            box.layer.transform = CATransform3DMakeScale(3, 3, 3)
+        
+            
+        }, completion: nil)
+        
+        
+        if gesture.state == .ended {
+            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                
+                self.selectedBox?.layer.transform = CATransform3DIdentity
+                
+            }, completion: nil)
+        }
     }
     
     
