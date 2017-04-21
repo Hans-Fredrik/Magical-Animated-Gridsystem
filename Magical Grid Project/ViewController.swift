@@ -10,21 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let numBoxesPerRow = 15
+    
+    var boxes = [String : UIView]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let rowLength = 15
-        let width = view.frame.width / CGFloat(rowLength)
+        let width = view.frame.width / CGFloat(numBoxesPerRow)
         
-        for j in 0...30{
-            for i in 0...rowLength {
+        for y in 0...30{
+            for x in 0...numBoxesPerRow {
                 let box = UIView()
                 box.backgroundColor = randomColor()
-                box.frame = CGRect(x: CGFloat(i) * width, y: CGFloat(j) * width, width: width, height: width)
+                box.frame = CGRect(x: CGFloat(x) * width, y: CGFloat(y) * width, width: width, height: width)
                 box.layer.borderWidth  = 0.5
                 box.layer.borderColor = UIColor.black.cgColor
                 view.addSubview(box)
                 
+                let key = "\(x)|\(y)"
+                boxes[key] = box
             }
         }
         
@@ -35,6 +40,28 @@ class ViewController: UIViewController {
         let location = gesture.location(in: view)
         print(location)
         
+        
+        let width = view.frame.width / CGFloat(numBoxesPerRow)
+        let x = Int(location.x / width)
+        let y = Int(location.y / width)
+        
+        print("X is: \(x)")
+        print("Y is: \(y)")
+        
+        let key = "\(x)|\(y)"
+        let selectedBox = boxes[key]
+        selectedBox?.backgroundColor = UIColor.white
+        
+        /*
+        var loopcount = 0
+        for subview in view.subviews{
+            if subview.frame.contains(location){
+                subview.backgroundColor = UIColor.black
+                print("Loopcount: \(loopcount)")
+            }
+            
+            loopcount += 1
+        }*/
     }
     
     
