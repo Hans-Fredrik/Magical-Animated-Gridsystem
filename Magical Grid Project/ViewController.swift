@@ -44,14 +44,8 @@ class ViewController: UIViewController {
     
     
     func handlePan(gesture: UIPanGestureRecognizer){
-        let location = gesture.location(in: view)
+        let key = calculatePositionAndGetKey(gesture: gesture)
         
-        let width = view.frame.width / CGFloat(boxesPerRow)
-        
-        let x = Int(location.x / width)
-        let y = Int(location.y / width)
-        
-        let key = "\(x)|\(y)"
         guard let selectedBox = boxes[key] else {
             return
         }
@@ -69,6 +63,18 @@ class ViewController: UIViewController {
         if gesture.state == .ended {
            animateBoxToGestureEnded()
         }
+    }
+    
+    
+    private func calculatePositionAndGetKey(gesture: UIPanGestureRecognizer) -> String{
+        let location = gesture.location(in: view)
+        
+        let width = view.frame.width / CGFloat(boxesPerRow)
+        
+        let x = Int(location.x / width)
+        let y = Int(location.y / width)
+        
+        return "\(x)|\(y)"
     }
     
     
