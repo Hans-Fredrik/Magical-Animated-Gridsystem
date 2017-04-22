@@ -18,9 +18,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         genereateBoxes()
-        
         view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
     }
     
@@ -53,17 +51,14 @@ class ViewController: UIViewController {
         let x = Int(location.x / width)
         let y = Int(location.y / width)
         
-        
         let key = "\(x)|\(y)"
         guard let selectedBox = boxes[key] else {
             return
         }
         
-        
         if self.lastSelectedBox != selectedBox{
             animateBoxToNormalState()
         }
-        
         
         self.lastSelectedBox = selectedBox
         
@@ -72,7 +67,7 @@ class ViewController: UIViewController {
         animateBoxToHighlightedState(box: selectedBox)
         
         if gesture.state == .ended {
-           animationForGestureEnded()
+           animateBoxToGestureEnded()
         }
     }
     
@@ -95,7 +90,7 @@ class ViewController: UIViewController {
     }
     
     
-    private func animationForGestureEnded(){
+    private func animateBoxToGestureEnded(){
         UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
             self.lastSelectedBox?.layer.transform = CATransform3DIdentity
