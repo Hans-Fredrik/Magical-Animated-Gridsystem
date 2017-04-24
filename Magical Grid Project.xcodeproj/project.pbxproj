@@ -13,6 +13,7 @@
 		332BAEAD1EA4B3AD0017C74E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 332BAEAC1EA4B3AD0017C74E /* Assets.xcassets */; };
 		332BAEB01EA4B3AD0017C74E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 332BAEAE1EA4B3AD0017C74E /* LaunchScreen.storyboard */; };
 		332BAEBB1EA4B3AD0017C74E /* Magical_Grid_ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332BAEBA1EA4B3AD0017C74E /* Magical_Grid_ProjectTests.swift */; };
+		336576A91EAE6C580064B1F5 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336576A81EAE6C580064B1F5 /* Position.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		332BAEB61EA4B3AD0017C74E /* Magical Grid ProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Magical Grid ProjectTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		332BAEBA1EA4B3AD0017C74E /* Magical_Grid_ProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magical_Grid_ProjectTests.swift; sourceTree = "<group>"; };
 		332BAEBC1EA4B3AD0017C74E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		336576A81EAE6C580064B1F5 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				332BAEA51EA4B3AD0017C74E /* AppDelegate.swift */,
 				332BAEA71EA4B3AD0017C74E /* ViewController.swift */,
+				336576A81EAE6C580064B1F5 /* Position.swift */,
 				332BAEA91EA4B3AD0017C74E /* Main.storyboard */,
 				332BAEAC1EA4B3AD0017C74E /* Assets.xcassets */,
 				332BAEAE1EA4B3AD0017C74E /* LaunchScreen.storyboard */,
@@ -203,6 +206,7 @@
 			files = (
 				332BAEA81EA4B3AD0017C74E /* ViewController.swift in Sources */,
 				332BAEA61EA4B3AD0017C74E /* AppDelegate.swift in Sources */,
+				336576A91EAE6C580064B1F5 /* Position.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

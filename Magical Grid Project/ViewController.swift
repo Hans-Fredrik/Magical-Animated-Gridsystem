@@ -12,9 +12,9 @@ class ViewController: UIViewController {
 
     let boxesPerRow = 15
     
-    var boxes = [String : UIView]()
-    
     var lastSelectedBox: UIView?
+    
+    var boxes = [[UIView?]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,11 @@ class ViewController: UIViewController {
         let boxWidth = view.frame.width / CGFloat(boxesPerRow)
         let numberOfRows = (Int)((view.frame.height / CGFloat(boxWidth)).rounded())
         
+        
         for y in 0...numberOfRows{
+            
+            var row = [UIView]()
+            
             for x in 0...boxesPerRow {
                 let box = UIView()
                 box.backgroundColor = randomColor()
@@ -36,17 +40,19 @@ class ViewController: UIViewController {
                 box.layer.borderColor = UIColor.black.cgColor
                 view.addSubview(box)
                 
-                let key = "\(x)|\(y)"
-                boxes[key] = box
+                row.append(box)
             }
+            
+            boxes.append(row)
         }
     }
     
     
     func handlePan(gesture: UIPanGestureRecognizer){
-        let key = calculatePositionAndGetKey(gesture: gesture)
+        let position = calculateArrayPosition(gesture: gesture)
         
-        guard let selectedBox = boxes[key] else {
+        
+        guard let selectedBox = boxes[position.y][position.x] else {
             return
         }
         
@@ -65,18 +71,22 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    private func calculatePositionAndGetKey(gesture: UIPanGestureRecognizer) -> String{
+    private func calculateArrayPosition(gesture: UIPanGestureRecognizer) -> Position {
+        var position = Position()
+        
         let location = gesture.location(in: view)
+        print(location)
         
         let width = view.frame.width / CGFloat(boxesPerRow)
         
-        let x = Int(location.x / width)
-        let y = Int(location.y / width)
-        
-        return "\(x)|\(y)"
-    }
+        position.x = Int(location.x / width)
+        position.y = Int(location.y / width)
     
+        print(position)
+        
+        return position
+    }
+
     
     private func animateBoxToHighlightedState(box: UIView){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
